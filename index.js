@@ -7,6 +7,9 @@ const https = require('https');
 async function getReleases() {
   const githubToken = core.getInput("github_token"); // <= resolved from action.yml default
 
+  core.debug(`Token present: ${Boolean(githubToken)}`);
+  core.debug(`Token length: ${(githubToken || '').length}`);
+
   return new Promise((resolve, reject) => {
     https
       .get(
