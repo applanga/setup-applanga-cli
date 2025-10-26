@@ -5,12 +5,14 @@ const childProcess = require('child_process');
 const https = require('https');
 
 async function getReleases() {
+  const githubToken = core.getInput("github_token"); // <= resolved from action.yml default
+
   return new Promise((resolve, reject) => {
     https
       .get(
         "https://api.github.com/repos/applanga/applanga-cli/releases",
         {
-          headers: { "User-Agent": "Node.js" },
+          headers: { "User-Agent": "Node.js", "Authorization": `bearer ${githubToken}` },
         },
         (res) => {
           let data = "";
